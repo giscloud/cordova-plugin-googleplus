@@ -48,7 +48,7 @@
 
     GIDSignIn.sharedInstance.configuration = config;
 
-    [signIn signInWithPresentingViewController:self.viewController completion:^(GIDSignInResult * _Nullable signInResult, NSError * _Nullable error) {
+    [GIDSignIn.sharedInstance signInWithPresentingViewController:self.viewController completion:^(GIDSignInResult * _Nullable signInResult, NSError * _Nullable error) {
         if (error) {
             NSDictionary *errorDetails = @{@"status": @"error", @"message": error.localizedDescription};
             CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[self toJSONString:errorDetails]];
@@ -61,7 +61,7 @@
                            @"userId"          : gidUser.userID,
                            @"idToken"         : gidUser.idToken.tokenString,
                            @"accessToken"     : gidUser.accessToken.tokenString,
-                           @"serverAuthCode"  : gidUser.serverAuthCode     ? : [NSNull null],
+                           @"serverAuthCode"  : [NSNull null],
                            @"displayName"     : gidUser.profile.name       ? : [NSNull null],
                            @"givenName"       : gidUser.profile.givenName  ? : [NSNull null],
                            @"familyName"      : gidUser.profile.familyName ? : [NSNull null],
